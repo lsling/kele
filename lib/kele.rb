@@ -8,9 +8,9 @@ class Kele
 
   def initialize(email, password)
     post_response = self.class.post('/sessions', body: {
-        email: email,
-        password: password
-      })
+      email: email,
+      password: password
+    })
     @user_auth_token = post_response['auth_token']
     raise "Invalid Email or Password. Try Again." if @user_auth_token.nil?
   end
@@ -21,9 +21,8 @@ class Kele
 	end
 
 	def get_mentor_availability(mentor_id)
-      @mentor_id = 2299843
-      response = self.class.get('/mentors/2299843/student_availability', headers: { "authorization" => @user_auth_token })
-      JSON.parse(response.body)
+    response = self.class.get("/mentors/#{mentor_id}/student_availability", headers: { "authorization" => @user_auth_token })
+    JSON.parse(response.body)
   end
 end
 
