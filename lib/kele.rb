@@ -10,9 +10,9 @@ class Kele
 
   def initialize(email, password)
     post_response = self.class.post('/sessions', body: {
-        email: email,
-        password: password
-      })
+      email: email,
+      password: password
+    })
     @user_auth_token = post_response['auth_token']
     raise "Invalid Email or Password. Try Again." if @user_auth_token.nil?
   end
@@ -23,16 +23,15 @@ class Kele
 	end
 
 	def get_mentor_availability(mentor_id)
-    @mentor_id = 2299843
-    response = self.class.get('/mentors/2299843/student_availability', headers: { "authorization" => @user_auth_token })
+    response = self.class.get("/mentors/#{mentor_id}/student_availability", headers: { "authorization" => @user_auth_token })
     JSON.parse(response.body)
   end
 
 	def get_messages(page = 0)
 		if page > 0
-				message_url = "/message_threads?page=#{page}"
+			message_url = "/message_threads?page=#{page}"
 		else
-				message_url = "/message_threads"
+			message_url = "/message_threads"
 		end
 		response = self.class.get(message_url, headers: { "authorization" => @user_auth_token })
 		JSON.parse(response.body)
@@ -47,7 +46,6 @@ class Kele
 			"stripped-text": message
 		})
 	end
-
 end
 # user_id = 2376019
 # mentor_id = 2299843
