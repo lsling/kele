@@ -9,7 +9,7 @@ module Roadmap
     JSON.parse(response.body)
   end
 
-  def create_submission(checkpoint_id, enrollment_id, assignment_branch, assignment_commit_link, comment)
+  def create_submission(checkpoint_id, assignment_branch, assignment_commit_link, comment)
     @enrollment_id = self.get_me['id']
     response = self.class.post("/checkpoint_submissions", headers: { "authorization" => @user_auth_token },
     body: {
